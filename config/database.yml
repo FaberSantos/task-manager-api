@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  timeout: 5000
+  username: market
+  password: 123456
+  host: localhost
+  port: 5432
+  pool: 5
+
+development:
+  <<: *default
+  database: task-manager-api_dev
+
+test:
+  <<: *default
+  database: task-manager-api_test
+
+production:
+  <<: *default
+  database: task-manager-api
+  username: task-manager-api
+  password: <%= ENV['TASK-MANAGER-API_DATABASE_PASSWORD'] %>
