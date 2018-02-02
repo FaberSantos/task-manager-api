@@ -1,5 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
+  before_action :set_user, only: [:update, :destroy]
+
   respond_to :json
 
   def show
@@ -19,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
       if @user.save
         render json: @user, status: 201
       else
-        byebug
+        #byebug
         render json: { errors: @user.errors }, status: 422
       end
     rescue
@@ -29,7 +31,27 @@ class Api::V1::UsersController < ApplicationController
   end
 
 
+  def update
+
+    if @user.update(user_params)
+      render json: @user, status: 200
+    else
+      #byebug
+      render json: { errors: @user.errors }, status: 422
+    end
+
+  end
+
+
+  def destroy
+    @user.destroy
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
