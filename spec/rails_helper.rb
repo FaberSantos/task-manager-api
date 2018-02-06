@@ -73,7 +73,7 @@ RSpec.configure do |config|
   end
 
   config.include FactoryGirl::Syntax::Methods
-  config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
 
 
 end
