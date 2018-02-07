@@ -70,8 +70,6 @@ RSpec.describe 'Users API', type: :request do
         expect(json_body).to have_key('errors')
       end
     end
-
-
   end
 
   describe 'PUT /users/:id' do
