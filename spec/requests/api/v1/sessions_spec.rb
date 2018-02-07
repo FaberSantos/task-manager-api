@@ -26,7 +26,7 @@ RSpec.describe 'Sessions API', type: :request do
 
       it 'returns json data for user with auth_token' do
         user.reload
-        expect(json_body['auth_token']).to eq(user.auth_token)
+        expect(json_body[:auth_token]).to eq(user.auth_token)
       end
 
     end
@@ -39,7 +39,7 @@ RSpec.describe 'Sessions API', type: :request do
       end
 
       it 'returns json data for errors' do
-        expect(json_body).to have_key('errors')
+        expect(json_body).to have_key(:errors)
       end
 
     end

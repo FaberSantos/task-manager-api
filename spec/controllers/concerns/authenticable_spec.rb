@@ -44,7 +44,7 @@ RSpec.describe Authenticable do
       end
 
       it 'return json with errors' do
-        expect(json_body).to have_key('errors')
+        expect(json_body).to have_key(:errors)
       end
     end
   end

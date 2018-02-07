@@ -27,7 +27,7 @@ RSpec.describe 'Tasks API', type: :request do
       end
 
       it 'returns 5 items' do
-        expect(json_body['tasks'].count).to eq(5)
+        expect(json_body[:data].count).to eq(5)
       end
       
     end
@@ -44,7 +44,7 @@ RSpec.describe 'Tasks API', type: :request do
 
     context 'when the task exists' do
       it 'returns the task' do
-        expect(json_body['title']).to eq(task.title)
+        expect(json_body[:data][:attributes][:title]).to eq(task.title)
       end
 
       it 'return status 200' do
@@ -80,11 +80,11 @@ RSpec.describe 'Tasks API', type: :request do
       end
 
       it 'returns json data for task' do
-        expect(json_body['title']).to eq(task_params[:title])
+        expect(json_body[:data][:attributes][:title]).to eq(task_params[:title])
       end
 
       it 'task is assigned for current user' do
-        expect(json_body['user_id']).to eq(user.id)
+        expect(json_body[:data][:attributes][:'user-id']).to eq(user.id)
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe 'Tasks API', type: :request do
       end
 
       it 'returns json data for errors' do
-        expect(json_body).to have_key('errors')
+        expect(json_body).to have_key(:errors)
       end
     end
   end
@@ -117,7 +117,7 @@ RSpec.describe 'Tasks API', type: :request do
       end
 
       it 'returns json data for updated task' do
-        expect(json_body['description']).to eq(task_params[:description])
+        expect(json_body[:data][:attributes][:description]).to eq(task_params[:description])
       end
     end
 
@@ -129,7 +129,7 @@ RSpec.describe 'Tasks API', type: :request do
       end
 
       it 'returns json data for errors' do
-        expect(json_body).to have_key('errors')
+        expect(json_body).to have_key(:errors)
       end
     end
   end
