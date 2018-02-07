@@ -12,8 +12,7 @@ RSpec.describe User, type: :model do
   #
   # subject = User.new
 
-  let(:user) {build(:user)}
-
+  let(:user) { build(:user) }
 
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
@@ -21,6 +20,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to allow_value('fff@fff.com').for(:email) }
   it { is_expected.to validate_uniqueness_of(:auth_token) }
 
+  it { is_expected.to have_many(:tasks).dependent(:destroy) }
 
   describe '#info' do
 

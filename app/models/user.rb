@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   before_create :generate_authentication_token!
 
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
 
   def info

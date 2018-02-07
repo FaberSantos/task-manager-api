@@ -21,5 +21,5 @@ RSpec.describe Task, type: :model do
     it { expect(task).not_to be_done }
   end
 
-  
+
 end
