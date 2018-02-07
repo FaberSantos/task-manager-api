@@ -5,7 +5,7 @@ RSpec.describe 'Tasks API', type: :request do
 
   let!(:headers) do
     {
-      'Accept' => 'application/vnd.taskmanager.v1',
+      'Accept' => 'application/vnd.taskmanager.v2',
       'Content-Type' => Mime[:json].to_s,
       'Authorization' => user.auth_token
     }
