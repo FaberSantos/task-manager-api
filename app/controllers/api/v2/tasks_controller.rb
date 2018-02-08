@@ -4,8 +4,10 @@ class Api::V2::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
   def index
-    @tasks = current_user.tasks
-    render json: @tasks, status: 200
+    #byebug
+    @tasks = current_user.tasks.ransack(params[:q])
+    #byebug
+    render json: @tasks.result, status: 200
   end
 
   def show
@@ -54,7 +56,7 @@ class Api::V2::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline, :done, :user_id)
+    params.require(:task).permit(:title, :description, :deadline, :done, :user_id, :q)
   end
 
 end

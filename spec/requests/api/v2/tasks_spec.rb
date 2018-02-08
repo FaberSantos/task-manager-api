@@ -15,13 +15,13 @@ RSpec.describe 'Tasks API', type: :request do
 
   # action index
   describe 'GET /tasks' do
-    before do
-      create_list(:task, 5, user_id: user.id)
-      get '/tasks', params: {}.to_json, headers: headers
-    end
+    
 
-    context 'when return list successfully' do
-
+    context 'when no search parameter' do
+      before do
+        create_list(:task, 5, user_id: user.id)
+        get '/tasks', params: {}.to_json, headers: headers
+      end
       it 'return status 200' do
         expect(response).to have_http_status(200)
       end
@@ -29,8 +29,29 @@ RSpec.describe 'Tasks API', type: :request do
       it 'returns 5 items' do
         expect(json_body[:data].count).to eq(5)
       end
-      
     end
+
+    context 'when filter and/or sort params are sent' do
+      let!(:notebook_task_1) { create(:task, title: 'B Notebook Task 1', user_id: user.id) }
+      let!(:notebook_task_2) { create(:task, title: 'A Notebook Task 2', user_id: user.id) }
+      let!(:car_task_1) { create(:task, title: 'Buy Car Task 1', user_id: user.id) }
+      let!(:car_task_2) { create(:task, title: 'Buy Car Task 2', user_id: user.id) }
+      let!(:other_task_1) { create(:task, title: 'Other task', user_id: user.id) }
+
+      before do
+        get '/tasks', params: { q: { title_cont: 'note', s: 'title DESC' } }, headers: headers
+      end
+
+      it 'return status 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns titles array items' do
+        returned_titles = json_body[:data].map { |t| t[:attributes][:title] }
+        expect(returned_titles).to eq([notebook_task_1.title, notebook_task_2.title])
+      end
+    end
+
   end
 
   # action show
@@ -156,4 +177,5 @@ RSpec.describe 'Tasks API', type: :request do
 
 
   end
+  
 end
