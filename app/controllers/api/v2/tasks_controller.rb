@@ -1,6 +1,6 @@
-class Api::V2::TasksController < ApplicationController
+class Api::V2::TasksController < Api::V2::BaseController
 
-  before_action :authenticate_with_token!
+  before_action :authenticate_user!
   before_action :set_task, only: [:show, :update, :destroy]
 
   def index

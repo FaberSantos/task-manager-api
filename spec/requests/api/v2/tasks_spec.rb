@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'Tasks API', type: :request do
   let!(:user) { create(:user) }
-
+  let(:auth_data) { user.create_new_auth_token }
   let!(:headers) do
     {
-      'Accept' => 'application/vnd.taskmanager.v2',
-      'Content-Type' => Mime[:json].to_s,
-      'Authorization' => user.auth_token
+        'Accept' => 'application/vnd.taskmanager.v2',
+        'Content-Type' => Mime[:json].to_s,
+        'access-token' => auth_data['access-token'],
+        'uid' => auth_data['uid'],
+        'client' => auth_data['client']
     }
   end
 
@@ -15,7 +17,6 @@ RSpec.describe 'Tasks API', type: :request do
 
   # action index
   describe 'GET /tasks' do
-    
 
     context 'when no search parameter' do
       before do

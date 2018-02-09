@@ -78,7 +78,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the request params are valid' do
-      let(:user_params) { {email: 'xxx@xxx' } }
+      let(:user_params) { {email: 'xxx@xxx.com' } }
 
       it 'returns record updated successfully - 200' do
         expect(response).to have_http_status(200)
